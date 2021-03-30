@@ -1,2 +1,4 @@
-title of the document
+RUN:
+   ./gradlew build dockerRun
+   ./gradlew dockerStop
 
