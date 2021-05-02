@@ -1,9 +1,23 @@
-node{
-   stage('Mvn Package'){
-     def mvnCMD = "/usr/share/maven/bin/"
-     sh "${mvnCMD}mvn clean package"
-   }
-   stage('Build Docker Image'){
-     sh 'docker build -t tq36/demo-app:2.0.0 .'
-   }
+pipeline {
+    agent any
+    tools {
+        maven 'Maven 3.3.9'
+        jdk 'jdk8'
+    }
+    stages {
+        stage ('Initialize') {
+            steps {
+                sh '''
+                    echo "PATH = ${PATH}"
+                    echo "M2_HOME = ${M2_HOME}"
+                '''
+            }
+        }
+
+        stage ('Build') {
+            steps {
+                sh 'mvn clean package' 
+            }
+        }
+    }
 }
